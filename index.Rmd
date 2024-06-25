@@ -1,6 +1,5 @@
 ---
 title: "JLB Time Tracking Dashboard"
-output_dir: docs
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -136,6 +135,9 @@ c %>%
 Future Important Dates
 =====================================================================
 
+Column {data-width=500}
+---------------------------------------------------------------------
+
 ### June 24 2024 - End of Year 2024
 
 ```{r}
@@ -157,6 +159,9 @@ c <- calendR(year = 2024,
 ggsave("Calender24.png",c,height=10,width=10,dpi=600)
 knitr::include_graphics("Calender24.png")
 ```
+
+Column {data-width=500}
+---------------------------------------------------------------------
 
 ### 2025
 
