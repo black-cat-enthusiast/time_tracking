@@ -156,7 +156,7 @@ c <- calendR(year = 2024,
         orientation = "p")
 
 
-ggsave("Calender24.png",c,height=10,width=10,dpi=600)
+ggsave("Calender24.png",c,height=8,width=8,dpi=600)
 knitr::include_graphics("Calender24.png")
 ```
 
@@ -185,7 +185,7 @@ c <- calendR(year = 2025,
         legend.pos = "right",
         orientation = "p")
 
-ggsave("Calender25.png",c,height=10,width=10,dpi=600)
+ggsave("Calender25.png",c,height=8,width=8,dpi=600)
 knitr::include_graphics("Calender25.png")
 ```
 
