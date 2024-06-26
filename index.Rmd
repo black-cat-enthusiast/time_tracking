@@ -44,10 +44,31 @@ Current Week
 Column {data-width=350}
 -----------------------------------------------------------------------
 
+### Hours Worked This Week 
+
+```{r}
+data$Weeks <- lubridate::week(data$Date)
+
+a <- lubridate::week(Sys.Date())
+
+b <- data[data$Weeks == a, ]
+
+c <- b %>%
+  na.omit() %>%
+  summarise(
+    sum=sum(Hours)
+  )
+
+ggplot()+
+  ylim(0,1)+
+  xlim(0,1)+
+  annotate("text",x=0.5,y=0.5,label=c,size=20,colour="purple")+
+  theme_void()
+```
+
 ### Distribution of Time by Project This week 
 
 ```{r}
-
 data$Weeks <- lubridate::week(data$Date)
 
 a <- lubridate::week(Sys.Date())
@@ -73,10 +94,18 @@ Column {data-width=250}
 ### Specific Tasks This week
 
 ```{r}
-data %>%
+data$Weeks <- lubridate::week(data$Date)
+
+a <- lubridate::week(Sys.Date())
+
+b <- data[data$Weeks == a, ]
+
+b$day_of_week <- weekdays(b$Date)
+
+b %>%
   na.omit() %>%
   group_by(Project) %>%
-  select(Project,Description,Hours) %>%
+  select(Date,day_of_week,Project,Description,Hours) %>%
   knitr::kable()
 ```
 
