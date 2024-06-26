@@ -41,7 +41,7 @@ data$Hours[is.na(data$Hours)] <- 0
 Current Week
 =======================================================================
 
-Column {data-width=350}
+Column {data-width=250}
 -----------------------------------------------------------------------
 
 ### Hours Worked This Week 
@@ -62,7 +62,7 @@ c <- b %>%
 ggplot()+
   ylim(0,1)+
   xlim(0,1)+
-  annotate("text",x=0.5,y=0.5,label=c,size=20,colour="purple")+
+  annotate("text",x=0.5,y=0.5,label=c,size=25,colour="purple")+
   theme_void()
 ```
 
@@ -88,7 +88,7 @@ b %>%
   ylim(0,5)
 ```
 
-Column {data-width=250}
+Column {data-width=350}
 -----------------------------------------------------------------------
 
 ### Specific Tasks This week
