@@ -1,7 +1,7 @@
 ---
 title: "JLB Time Tracking Dashboard"
 output_dir: docs
-output: 
+output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
