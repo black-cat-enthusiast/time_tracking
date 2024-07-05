@@ -3,23 +3,10 @@ title: "JLB Time Tracking Dashboard"
 output_dir: docs
 output:
   flexdashboard::flex_dashboard:
+    theme: lumen
     orientation: columns
     vertical_layout: fill
 ---
-
-<style>                     
-.navbar {
-
-  background-color:purple;
-  border-color:white;
-}
-.navbar-brand {
-color:white!important;
-}
-
-.navbar, [data-toggle=tab], .navbar-brand  {   background-color:purple!important;   border-color:white;   color:white!important; }
-
-</style>      
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
@@ -62,7 +49,7 @@ c <- b %>%
 ggplot()+
   ylim(0,1)+
   xlim(0,1)+
-  annotate("text",x=0.5,y=0.5,label=c,size=25,colour="purple")+
+  annotate("text",x=0.5,y=0.5,label=c,size=35,colour="#6a51a3")+
   theme_void()
 ```
 
@@ -79,8 +66,8 @@ b %>%
   na.omit() %>%
   ggplot(aes(x=Date,y=Hours,colour=Project,fill=Project))+
   geom_bar(stat="identity")+
-  scale_color_brewer(palette = "PuOr")+
-  scale_fill_brewer(palette = "PuOr")+
+  scale_color_brewer(palette = "Purples")+
+  scale_fill_brewer(palette = "Purples")+
   theme_classic()+
   labs(
     y="Number of Hours"
@@ -125,8 +112,8 @@ data %>%
   summarise(Hours = sum(Hours)) %>%
   ggplot(aes(month,Hours,fill=Project))+
   geom_col()+
-  scale_color_brewer(palette = "PuOr")+
-  scale_fill_brewer(palette = "PuOr")+
+  scale_color_brewer(palette = "Purples")+
+  scale_fill_brewer(palette = "Purples")+
   theme_classic()
 ```
 
@@ -153,7 +140,7 @@ c$Hours[is.na(c$Hours)] <- 0
 c %>%
   ggplot(aes(x=Day,y=Month,fill=Hours))+
   geom_tile(colour="white")+
-  scale_fill_gradient(low="white",high="purple")+
+  scale_fill_gradient(low="white",high="#6a51a3")+
   coord_fixed()+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
@@ -181,7 +168,7 @@ events[a] <- b
 
 c <- calendR(year = 2024,
         special.days = events,
-        special.col = c("purple"),
+        special.col = c("#6a51a3"),
         legend.pos = "right",
         orientation = "p")
 
