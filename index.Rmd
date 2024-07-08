@@ -117,6 +117,28 @@ data %>%
   theme_classic()
 ```
 
+### Total Amount of Time Spent on Each Project
+
+```{r}
+data %>%
+  na.omit() %>%
+  group_by(Project) %>%
+  summarise(
+    Hours = sum(Hours)
+  ) %>%
+  ggplot(aes(x=Project,y=Hours,colour=Project,fill=Project))+
+  geom_bar(stat="identity")+
+  scale_color_brewer(palette = "Purples")+
+  scale_fill_brewer(palette = "Purples")+
+  theme_classic()+
+  labs(
+    y="Total Number of Hours"
+  )
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
 ### Heatmap of Hours Worked Across Days of Established Contract
 
 ```{r}
@@ -147,6 +169,16 @@ c %>%
   labs(
     x="Days of the Month",y="Months",colour=NULL, title="Contract: June 2024 - June 2025"
   )
+```
+
+### All Historical Specific Tasks & Hours 
+
+```{r}
+data %>%
+  na.omit() %>%
+  arrange(desc(Date)) %>%
+  select(Date,Project,Description,Hours) %>%
+  knitr::kable()
 ```
 
 Future Important Dates
