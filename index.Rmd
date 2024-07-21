@@ -18,6 +18,7 @@ library(calendR)
 library(RColorBrewer)
 
 data <- read_csv("JLB_time.csv")
+data$Date <- as.Date(data$Date, format = "%m/%d/%Y")
 
 data$Project[is.na(data$Project)] <- ""
 data$Hours[is.na(data$Hours)] <- 0
