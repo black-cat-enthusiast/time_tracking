@@ -100,13 +100,13 @@ b %>%
 All Historical Data
 =======================================================================
 
-Aggregate Data Across Entire Work Term {data-width=350}
+Aggregate Data Across Entire Work Term {data-width=250}
 -----------------------------------------------------------------------
 
 ### Distribution of Time by Project Across Months 
 
 ```{r}
-data %>%
+a <- data %>%
   na.omit() %>%
   mutate(month = lubridate::month(Date,abbr = TRUE,label=TRUE)) %>% 
   group_by(month,Project) %>%
@@ -115,13 +115,17 @@ data %>%
   geom_col()+
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
-  theme_classic()
+  theme_classic()+
+  theme(legend.position = c(0,1),legend.justification = c(0,1))
+
+ggsave("Proj_months.png",a,height=4,width=4,dpi=300)
+knitr::include_graphics("Proj_months.png")
 ```
 
 ### Total Amount of Time Spent on Each Project
 
 ```{r}
-data %>%
+a <- data %>%
   na.omit() %>%
   group_by(Project) %>%
   summarise(
@@ -135,6 +139,9 @@ data %>%
   labs(
     y="Total Number of Hours"
   )
+
+ggsave("total_time.png",a,height=4,width=4,dpi=300)
+knitr::include_graphics("total_time.png")
 ```
 
 Column {data-width=350}
@@ -160,7 +167,7 @@ c <- left_join(b,a,by="Date") %>%
 
 c$Hours[is.na(c$Hours)] <- 0
 
-c %>%
+d <- c %>%
   ggplot(aes(x=Day,y=Month,fill=Hours))+
   geom_tile(colour="white")+
   scale_fill_gradient(low="white",high="#6a51a3")+
@@ -169,7 +176,11 @@ c %>%
   theme(plot.title = element_text(hjust=0.5))+
   labs(
     x="Days of the Month",y="Months",colour=NULL, title="Contract: June 2024 - June 2025"
-  )
+  )+
+  scale_x_continuous(breaks = c(1:31))
+
+ggsave("heatmap.png",d,height=3,width=7,dpi=300)
+knitr::include_graphics("heatmap.png")
 ```
 
 ### All Historical Specific Tasks & Hours 
