@@ -73,7 +73,7 @@ b %>%
   labs(
     y="Number of Hours"
   )+
-  ylim(0,5)
+  ylim(0,10)
 ```
 
 Column {data-width=350}
@@ -116,7 +116,11 @@ a <- data %>%
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
   theme_classic()+
-  theme(legend.position = c(0,1),legend.justification = c(0,1))
+  theme(legend.position = c(0,1),legend.justification = c(0,1))+
+  labs(
+    x="",
+    y="Number of Hours Worked per Month"
+  )
 
 ggsave("Proj_months.png",a,height=4,width=4,dpi=300)
 knitr::include_graphics("Proj_months.png")
@@ -136,8 +140,11 @@ a <- data %>%
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
   theme_classic()+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+
   labs(
-    y="Total Number of Hours"
+    y="Total Number of Hours",
+    x=""
   )
 
 ggsave("total_time.png",a,height=4,width=4,dpi=300)
@@ -170,7 +177,7 @@ c$Hours[is.na(c$Hours)] <- 0
 d <- c %>%
   ggplot(aes(x=Day,y=Month,fill=Hours))+
   geom_tile(colour="white")+
-  scale_fill_gradient(low="white",high="#6a51a3")+
+  scale_fill_gradient(low="white",high="#C0737A")+
   coord_fixed()+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
@@ -249,5 +256,21 @@ c <- calendR(year = 2025,
 ggsave("Calender25.png",c,height=8,width=8,dpi=600)
 knitr::include_graphics("Calender25.png")
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
