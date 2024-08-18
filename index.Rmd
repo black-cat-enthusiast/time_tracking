@@ -200,61 +200,75 @@ data %>%
   knitr::kable()
 ```
 
-Future Important Dates
+Project Timelines
 =====================================================================
 
-Column {data-width=500}
----------------------------------------------------------------------
-
-### June 24 2024 - End of Year 2024
+### Nursing & Spasticity Project
 
 ```{r}
+data <- read_csv("Nursing_timeline.csv")
 
-events <- rep(NA,366)
+a <- data  %>%
+  melt(id.vars=c("Activity","Order","Done")) %>%
+  mutate(value = as.Date(value),Order = as.factor(Order)) %>%
+  ggplot(aes(x=Activity,y=value,colour=Done))+
+  geom_line(size=5,alpha=0.2)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust=0.5))+
+  theme(legend.position = c(1,0),legend.justification = c(1,0))+
+  theme(plot.background=element_rect(fill="transparent",colour="transparent"))+
+  theme(panel.background=element_rect(fill="transparent",colour="transparent"))+
+  theme(legend.background = element_rect(fill="transparent",colour="transparent"))+
+  labs(x="",y="",colour=NULL)+
+  coord_flip()+
+  aes(x = fct_inorder(Order))+
+  scale_x_discrete(labels=data$Activity)+
+  labs(x="",title = "Nursing & Spasticity Project")
 
-a <- yday("2024-08-19")
-b <- "Botox & Spasticity Clinic\n12pm-5pm in London"
+today <- as.Date(Sys.Date())
 
-events[a] <- b
+GANTT <- a +
+  annotate("segment",x=1,xend=8,y=today,yend=today,linetype="dashed",alpha=0.5)+
+  annotate("text",x=6,y=today,label="Today's Date",size=3)
 
-c <- calendR(year = 2024,
-        special.days = events,
-        special.col = c("#6a51a3"),
-        legend.pos = "right",
-        orientation = "p")
-
-
-ggsave("Calender24.png",c,height=8,width=8,dpi=600)
-knitr::include_graphics("Calender24.png")
+GANTT
 ```
 
-Column {data-width=500}
----------------------------------------------------------------------
-
-### 2025
+### PHAC Project
 
 ```{r}
+data <- read_csv("PHAC_timeline.csv")
 
-events <- rep(NA,365)
+a <- data  %>%
+  na.omit() %>%
+  melt(id.vars=c("Activity","Order","Done")) %>%
+  mutate(value = as.Date(value),Order = as.factor(Order)) %>%
+  ggplot(aes(x=Activity,y=value,colour=Done))+
+  geom_line(size=5,alpha=0.2)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust=0.5))+
+  theme(legend.position = c(0,1),legend.justification = c(0,1))+
+  theme(plot.background=element_rect(fill="transparent",colour="transparent"))+
+  theme(panel.background=element_rect(fill="transparent",colour="transparent"))+
+  theme(legend.background = element_rect(fill="transparent",colour="transparent"))+
+  labs(x="",y="",colour=NULL)+
+  coord_flip()+
+  aes(x = fct_inorder(Order))+
+  scale_x_discrete(labels=data$Activity)+
+  labs(x="",title = "PHAC Project")+
+  ylim(as.Date("2024-06-01"), as.Date("2025-04-01"))
 
-a <- yday("2025-03-01")
-b <- "Complete PHAC Project"
+today <- as.Date(Sys.Date())
+Complete <- as.Date("2025-03-01")
 
-events[a] <- b
+GANTT <- a +
+  annotate("segment",x=1,xend=5,y=today,yend=today,linetype="dashed",alpha=0.5)+
+  annotate("text",x=3.5,y=today,label="Today's Date",size=3)+
+  
+  annotate("segment",x=1,xend=5,y=Complete,yend=Complete,linetype="dashed",alpha=0.5,colour="red")+
+  annotate("text",x=3.5,y=Complete,label="Complete PHAC \n Project",colour="red",size=3)
 
-a <- yday("2025-06-24")
-b <- "Current Contract End Date"
-
-events[a] <- b
-
-c <- calendR(year = 2025,
-        special.days = events,
-        special.col = c("#795695","#E9D3FF"),
-        legend.pos = "right",
-        orientation = "p")
-
-ggsave("Calender25.png",c,height=8,width=8,dpi=600)
-knitr::include_graphics("Calender25.png")
+GANTT
 ```
 
 

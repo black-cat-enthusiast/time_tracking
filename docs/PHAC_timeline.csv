@@ -1,0 +1,6 @@
+Activity,Begin,End,Order,Done
+Complete required training,2024-06-24,2024-07-01,1,Done
+Make data analysis plan,2024-07-01,2024-09-15,2,In Progress
+Meet with Analyst to get Data,2024-09-15,2024-09-30,3,Not Started
+Clean and analyze the dataset,2024-10-01,2024-12-22,4,Not Started
+Make outputs (write paper etc.) ,2025-01-01,2025-02-28,5,Not Started
