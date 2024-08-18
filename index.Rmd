@@ -212,7 +212,7 @@ a <- data  %>%
   melt(id.vars=c("Activity","Order","Done")) %>%
   mutate(value = as.Date(value),Order = as.factor(Order)) %>%
   ggplot(aes(x=Activity,y=value,colour=Done))+
-  geom_line(size=5,alpha=0.2)+
+  geom_line(size=7,alpha=0.2)+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
   theme(legend.position = c(1,0),legend.justification = c(1,0))+
@@ -244,7 +244,7 @@ a <- data  %>%
   melt(id.vars=c("Activity","Order","Done")) %>%
   mutate(value = as.Date(value),Order = as.factor(Order)) %>%
   ggplot(aes(x=Activity,y=value,colour=Done))+
-  geom_line(size=5,alpha=0.2)+
+  geom_line(size=9,alpha=0.2)+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
   theme(legend.position = c(0,1),legend.justification = c(0,1))+
