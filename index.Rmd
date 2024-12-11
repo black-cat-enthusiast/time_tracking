@@ -4,8 +4,10 @@ output_dir: docs
 output:
   flexdashboard::flex_dashboard:
     theme: lumen
-    orientation: columns
+    orientation: rows
     vertical_layout: fill
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -69,9 +71,9 @@ b %>%
   geom_bar(stat="identity")+
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
-  theme_classic()+
+  theme_classic(base_size = 15)+
   labs(
-    y="Number of Hours"
+    y="Total Number of Hours Worked"
   )+
   ylim(0,10)
 ```
@@ -103,6 +105,31 @@ All Historical Data
 Aggregate Data Across Entire Work Term {data-width=250}
 -----------------------------------------------------------------------
 
+### Distribution of Time by Project Across Weeks 
+
+```{r}
+a <- data %>%
+  na.omit() %>%
+  mutate(week = lubridate::week(Date)) %>% 
+  group_by(week,Project) %>%
+  summarise(Hours = sum(Hours)) %>%
+  ggplot(aes(week,Hours,fill=Project))+
+  geom_col()+
+  scale_color_brewer(palette = "Purples")+
+  scale_fill_brewer(palette = "Purples")+
+  theme_classic(base_size = 15)+
+  theme(legend.position = c(0,1),legend.justification = c(0,1))+
+  theme(legend.background = element_rect(fill = "transparent"))+
+  labs(
+    x="Weeks of the Calendar Year",
+    y="Number of Hours Worked per Week"
+  )+
+  ylim(0,20)
+
+ggsave("Proj_weeks.png",a,height=4,width=4,dpi=300)
+knitr::include_graphics("Proj_weeks.png")
+```
+
 ### Distribution of Time by Project Across Months 
 
 ```{r}
@@ -115,12 +142,14 @@ a <- data %>%
   geom_col()+
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
-  theme_classic()+
+  theme_classic(base_size = 15)+
   theme(legend.position = c(0,1),legend.justification = c(0,1))+
+  theme(legend.background = element_rect(fill="transparent"))+
   labs(
-    x="",
+    x="Months of Contract Completed",
     y="Number of Hours Worked per Month"
-  )
+  )+
+  ylim(0,100)
 
 ggsave("Proj_months.png",a,height=4,width=4,dpi=300)
 knitr::include_graphics("Proj_months.png")
@@ -139,9 +168,9 @@ a <- data %>%
   geom_bar(stat="identity")+
   scale_color_brewer(palette = "Purples")+
   scale_fill_brewer(palette = "Purples")+
-  theme_classic()+
+  theme_classic(base_size = 15)+
   theme(legend.position="none")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
   labs(
     y="Total Number of Hours",
     x=""
@@ -212,7 +241,7 @@ a <- data  %>%
   melt(id.vars=c("Activity","Order","Done")) %>%
   mutate(value = as.Date(value),Order = as.factor(Order)) %>%
   ggplot(aes(x=Activity,y=value,colour=Done))+
-  geom_line(size=7,alpha=0.2)+
+  geom_line(size=7,alpha=0.5)+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
   theme(legend.position = c(1,0),legend.justification = c(1,0))+
@@ -244,7 +273,7 @@ a <- data  %>%
   melt(id.vars=c("Activity","Order","Done")) %>%
   mutate(value = as.Date(value),Order = as.factor(Order)) %>%
   ggplot(aes(x=Activity,y=value,colour=Done))+
-  geom_line(size=9,alpha=0.2)+
+  geom_line(size=9,alpha=0.5)+
   theme_classic()+
   theme(plot.title = element_text(hjust=0.5))+
   theme(legend.position = c(0,1),legend.justification = c(0,1))+
